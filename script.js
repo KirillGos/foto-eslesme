@@ -1,5 +1,17 @@
+// ekleme
+const sendBtn = document.querySelector('#sendInfo');
+const input = document.querySelector('input');
+const changeCards = document.querySelector('#enterAmountOfCards')
+sendBtn.addEventListener('click', ()=> {
+    let value = input.value;
+    (value > 8 && value < 30 && value % 2 === 0) ? renderCards(value) : alert('Yanlış Bilgi, 8 ile 30 arasında sayı giriniz');
+    input.value = '';
+})
+
 let puanText = document.getElementById('puanText');
 puan = 0;
+
+let amountOfCardvar = 0;
 
 puanText.innerHTML = "0"
 const body = document.querySelector('body');
@@ -21,9 +33,9 @@ function getRndInteger(min, max) {
     return Math.floor(Math.random() * (max - min) + min);
 }
 
-let randomNum = function () {
+function randomNum(amountOfCard = 8) {
     let randomArray = [];
-    for (let i = 0; i < 4; i++) {
+    for (let i = 0; i < (amountOfCard / 2); i++) {
         // 1 ile 99 (ikisi dahil) arasında olan sayılardan 4'unu rastgele bir şekilde seçer
             let randomNumbers = getRndInteger(1, 100);
             randomArray.push(randomNumbers, randomNumbers);
@@ -32,16 +44,16 @@ let randomNum = function () {
     return randomArray.sort(() => Math.random() - 0.5);
 
 };
-
 /*
 Görev 2: Bu numaraları 1-99 arası(1 ve 99 dahil) sayılardan 
 rastgele 4 çift oluşturacak şekilde üreten bir fonksiyon yazarak, kod bloğundaki array değerini bu
  fonksiyondan dönen array ile değiştiren kodları yazın
 */
-
-
-function renderCards() {
-    const fotoNumaralari = randomNum(8);
+renderCards()
+function renderCards(amountOfCard = 8) {
+    amountOfCardvar = amountOfCard;
+    oyunCerceve.innerHTML = '';
+    const fotoNumaralari = randomNum(amountOfCard);
     for (fotoNumara of fotoNumaralari) {
         const yenikart = document.createElement("div");
         yenikart.innerHTML = kartTemplate;
@@ -54,7 +66,6 @@ function renderCards() {
     }
 }
 
-renderCards();
 
 
 function kartTiklama(olay) {
@@ -106,8 +117,6 @@ function kartTiklama(olay) {
 
             puan++;
 
-            console.log(puan);
-
             puanText.innerHTML = puan;
 
             /*
@@ -130,20 +139,19 @@ function kartTiklama(olay) {
                 secilenKart.classList.remove("acik");
             }, 1500);
         }
-        
-        if (puan === 4) {
+        if (puan === (amountOfCardvar / 2)) {
             root.style.display = 'none';
-    
+            changeCards.style.display = 'none';
             let congratsImg = document.createElement('img');
             congratsImg.src = 'congrats-1.gif';
             body.append(congratsImg);
     
             setTimeout(() => {
                 root.style.display = 'block';
+                changeCards.style.display = 'block';
                 congratsImg.remove();
                 restartGame();
             }, 5000)
-       
     }
 }
 function restartGame() {

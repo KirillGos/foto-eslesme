@@ -54,3 +54,17 @@ div#oyun-cerceve {
     height: 90%;
     width: auto;
   }
+
+#enterAmountOfCards {
+    position: fixed;
+    top: 0;
+    left: 0;
+    margin: 15px;
+  }
+
+input {
+  width: 10vw;
+  padding:  5px;
+  background-color: lightblue;
+  color: white;
+}
