@@ -2,6 +2,8 @@ let puanText = document.getElementById('puanText');
 puan = 0;
 
 puanText.innerHTML = "0"
+const body = document.querySelector('body');
+const root = document.querySelector('#root');
 
 const kartTemplate = `
     <div class="kart-cerceve">
@@ -27,23 +29,25 @@ let randomNum = function(){
 
 
 /*
-Görev 2: Bu numaraları 1-99 arası(1 ve 99 dahil) sayılardan rastgele 4 çift oluşturacak şekilde üreten bir fonksiyon yazarak, kod bloğundaki array değerini bu fonksiyondan dönen array ile değiştiren kodları yazın
+Görev 2: Bu numaraları 1-99 arası(1 ve 99 dahil) sayılardan 
+rastgele 4 çift oluşturacak şekilde üreten bir fonksiyon yazarak, kod bloğundaki array değerini bu fonksiyondan dönen array ile değiştiren kodları yazın
 */
 const fotoNumaralari = [10, 20, 30, 20, 10, 40, 40, 30];
 
-
 console.log(fotoNumaralari);
-
-for (fotoNumara of fotoNumaralari) {
+function renderCards() {
+    for (fotoNumara of fotoNumaralari) {
     const yenikart = document.createElement("div");
     yenikart.innerHTML = kartTemplate;
     yenikart.classList.add("kart");
     yenikart.querySelector(".kart-arkayuz img").src = `https://lipsum.app/id/${fotoNumara}/100x100`;
-    document.querySelector("div#oyun-cerceve").append(yenikart);
+    document.querySelector('#oyun-cerceve').append(yenikart);
 
     //Her bir karta tıklandığında "kartTiklama" fonksiyonu çalışacak.
     yenikart.addEventListener("click", kartTiklama);
-}
+}}
+renderCards();
+
 
 function kartTiklama(olay) {
     //Tıklanan kartı seçilen olarak değişkene atayalım
@@ -99,7 +103,8 @@ function kartTiklama(olay) {
       puanText.innerHTML = puan;
 
       /*
-            Görev 1: Kullanıcı 4 kartı da eşleştirdiğinde sayfa ortasında beliren hareketli gif dosyası formatında bir kutlama görseli belirsin ve bu fotoğraf 5 saniye sonra ortadan kaybolsun.
+            Görev 1: Kullanıcı 4 kartı da eşleştirdiğinde sayfa ortasında beliren hareketli gif dosyası
+             formatında bir kutlama görseli belirsin ve bu fotoğraf 5 saniye sonra ortadan kaybolsun.
         */
 
 
@@ -117,4 +122,16 @@ function kartTiklama(olay) {
             secilenKart.classList.remove("acik");
         }, 1500);
     }
+    if(puan === 4) {
+        root.style.display = 'none';
+
+        let congratsImg = document.createElement('img');
+        congratsImg.src = 'congrats-1.gif';
+        body.append(congratsImg);
+
+       setTimeout(()=> {
+            root.style.display = 'block';
+            congratsImg.remove()
+       }, 5000)
+    } 
 }

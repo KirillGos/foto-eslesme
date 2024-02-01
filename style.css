@@ -1,3 +1,12 @@
+html, body {
+  height: 100%;
+  width: 100%;
+}
+body {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
 div#oyun-cerceve {
     display: grid;
     grid-template-columns: 100px 100px 100px 100px;
@@ -39,4 +48,9 @@ div#oyun-cerceve {
   
   .kart-arkayuz {
     transform: rotateY(180deg);
+  }
+  img[src="congrats-1.gif"] {
+    position: fixed;
+    height: 90%;
+    width: auto;
   }
